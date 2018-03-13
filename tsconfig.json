@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2018"
+    ]
+  },
+  "include": [
+    "index.d.ts",
+    "./typings/**/*.d.ts",
+    "source/**/*"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}

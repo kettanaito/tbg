@@ -1,0 +1,3 @@
+interface ISector {
+  type: IRoadType
+}
