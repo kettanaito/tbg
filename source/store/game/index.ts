@@ -1,5 +1,5 @@
 import initialState from './initial-state';
 
-export default function map(state = initialState, action) {
+export default function game(state = initialState) {
   return state;
 }

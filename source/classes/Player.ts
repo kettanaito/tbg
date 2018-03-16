@@ -1,14 +1,12 @@
-type PlayerPosition = [number, number];
-
 type PlayerOptions = {
   position?: PlayerOptions
 }
 
-export default class Player {
+export default class Player implements IPlayer {
   hearts: number = 3
-  position: PlayerPosition = [0, 0]
+  position: IPosition = [0, 0]
 
-  constructor(options: PlayerOptions) {
+  constructor(options: PlayerOptions = null) {
     return this;
   }
 

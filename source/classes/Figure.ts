@@ -1,4 +1,4 @@
-import { random, inheritOptions } from '../utils';
+import { random, inheritOptions, findFigureAtPosition } from '../utils';
 
 type FigureOptions = {
   type: FigureType,
@@ -21,6 +21,12 @@ export default class Figure implements IFigure {
     console.log({ roadIndex, roadLength, otherFigures });
 
     const position: IPosition = [roadIndex, random(1, roadLength)];
+
+    /* Check if there is already some figure at the desired position */
+    const existingFigure = findFigureAtPosition(position, otherFigures);
+    if (existingFigure) {
+      console.warn('Cannot place the figure', this, 'position already taken by:', existingFigure);
+    }
 
     return position;
   }

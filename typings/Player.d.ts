@@ -1,4 +1,4 @@
-type Player = {
+interface IPlayer {
   hearts: number,
   position: IPosition
 }

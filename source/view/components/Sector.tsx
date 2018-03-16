@@ -24,7 +24,7 @@ background-repeat: no-repeat;
 background-position: 0 0;
 height: 120px;
 width: 100px;
-transition: background-position .3s ease-out;
+transition: all .3s ease-out;
 
 &:hover {
   background-position-y: 8px;

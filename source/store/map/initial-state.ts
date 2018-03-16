@@ -1,6 +1,6 @@
-import { roads } from '../../const';
+import { roadsConfigMap } from '../../const';
 import { createRoads } from '../../utils';
 
 export default {
-  roads: createRoads(roads)
+  roads: createRoads(roadsConfigMap)
 };

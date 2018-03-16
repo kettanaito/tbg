@@ -35,8 +35,11 @@ function placeFigures(roadIndex, roadLength, figureConfigMap: IFigureConfigMap) 
   }, []);
 }
 
-export default function createRoads(roads: IRoadConfig[]) {
-  return roads.map((road, roadIndex) => {
+/**
+ * Creates road instances based on the provided roads configuration map.
+ */
+export default function createRoads(roadsConfigMap: IRoadConfig[]) {
+  return roadsConfigMap.map((road, roadIndex) => {
     const { type, sectorsCount, figureConfigMap } = road;
 
     return {

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { equalPosition } from '../../utils';
 import Sector from './Sector';
+import Player from './Player';
 
 const MapContainer = styled.div`
 display: flex;
@@ -9,21 +11,32 @@ align-items: self-end;
 flex-wrap: wrap;
 `;
 
-class Map extends React.Component<any> {
-  renderSectors = (road, roadIndex) => {
+interface IMapProps {
+  roads: any,
+  players: any
+}
+
+class Map extends React.Component<IMapProps> {
+  renderSectors = (road, roadIndex,) => {
+    const { players } = this.props;
     const { type, figures, sectorsCount } = road;
     const sectors = [];
 
     for (let sectorIndex = 0; sectorIndex < sectorsCount; sectorIndex++) {
-      const figure = figures.find((figure) => {
-        return (figure.position[0] === roadIndex) && (figure.position[1] === sectorIndex);
-      });
+      const sectorPosition: IPosition = [roadIndex, sectorIndex];
+
+      const figureOnSector = figures.find(figure => equalPosition(figure.position, sectorPosition));
+      const playerOnSector = players.find(player => equalPosition(player.position, sectorPosition));
 
       sectors.push(
         <Sector
           key={ sectorIndex }
           type={ type }
-          figure={ figure && figure.instance } />
+          figure={ figureOnSector && figureOnSector.instance }>
+          { playerOnSector && (
+            <Player info={ playerOnSector } />
+          ) }
+        </Sector>
       );
     }
 
@@ -31,7 +44,7 @@ class Map extends React.Component<any> {
   }
 
   render() {
-    const { roads } = this.props;
+    const { roads, players } = this.props;
 
     return (
       <MapContainer>
@@ -44,5 +57,6 @@ class Map extends React.Component<any> {
 }
 
 export default connect((state: any) => ({
-  roads: state.map.roads
+  roads: state.map.roads,
+  players: state.players
 }))(Map);

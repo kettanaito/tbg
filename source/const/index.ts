@@ -1,1 +1,1 @@
-export { default as roads } from './roads';
+export { default as roadsConfigMap } from './roadsConfigMap';
