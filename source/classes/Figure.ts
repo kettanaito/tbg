@@ -4,12 +4,13 @@ type FigureOptions = {
   type: FigureType,
   name: string,
   onPlace?: () => number,
-  onEnter?: (player: any, sector: any) => void
+  onEnter?: IFigureOnEnterHandler
 }
 
 export default class Figure implements IFigure {
   type: FigureType
   name: string
+  onEnter: IFigureOnEnterHandler
 
   constructor(options: FigureOptions) {
     inheritOptions(this, options);

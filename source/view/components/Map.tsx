@@ -12,12 +12,12 @@ flex-wrap: wrap;
 `;
 
 interface IMapProps {
-  roads: any,
+  roads: any
   players: any
 }
 
 class Map extends React.Component<IMapProps> {
-  renderSectors = (road, roadIndex,) => {
+  renderSectors = (road, roadIndex) => {
     const { players } = this.props;
     const { type, figures, sectorsCount } = road;
     const sectors = [];
@@ -25,18 +25,13 @@ class Map extends React.Component<IMapProps> {
     for (let sectorIndex = 0; sectorIndex < sectorsCount; sectorIndex++) {
       const sectorPosition: IPosition = [roadIndex, sectorIndex];
 
-      const figureOnSector = figures.find(figure => equalPosition(figure.position, sectorPosition));
-      const playerOnSector = players.find(player => equalPosition(player.position, sectorPosition));
-
       sectors.push(
         <Sector
           key={ sectorIndex }
           type={ type }
-          figure={ figureOnSector && figureOnSector.instance }>
-          { playerOnSector && (
-            <Player info={ playerOnSector } />
-          ) }
-        </Sector>
+          position={ sectorPosition }
+          players={ players }
+          figures={ figures } />
       );
     }
 

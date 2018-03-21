@@ -1,14 +1,22 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { random } from '../../utils';
+import Player from './Player';
+import { random, equalPosition } from '../../utils';
 
 type TSectorProps = {
-  type: string,
-  figure: IFigure,
+  type: IRoadType
+  position: IPosition
+  players: IPlayer[]
+  figures: IPlacedFigure[]
+}
+
+type TStyledSectorProps = {
+  type: IRoadType
+  figure: IFigure
   offsetTop?: number
 }
 
-const StyledSector = styled<TSectorProps, 'div'>('div')`
+const StyledSector = styled<TStyledSectorProps, 'div'>('div')`
 position: relative;
 display: inline-block;
 margin: ${({ offsetTop }) => offsetTop}px .25rem;
@@ -53,12 +61,37 @@ transition: all .3s ease-out;
 }
 `;
 
-const Sector = (props: TSectorProps) => {
-  const offsetTop = random(0, 20);
+export default class Sector extends React.Component<TSectorProps> {
+  componentDidUpdate() {
+    const { position, players, figures } = this.props;
+    const playerOnSector = players.find(player => equalPosition(player.position, position));
+    const figureOnSector = figures.find(figure => equalPosition(figure.position, position));
 
-  return (
-    <StyledSector { ...props } offsetTop={ offsetTop } />
-  );
+    if (!playerOnSector || !figureOnSector) {
+      return;
+    }
+
+    if (figureOnSector && figureOnSector.instance.onEnter) {
+      figureOnSector.instance.onEnter(playerOnSector, position);
+    }
+  }
+
+  render() {
+    const { type, position, players, figures } = this.props;
+    const offsetTop = random(0, 20);
+
+    const playerOnSector = players.find(player => equalPosition(player.position, position));
+    const figureOnSector = figures.find(figure => equalPosition(figure.position, position));
+
+    return (
+      <StyledSector
+        type={ type }
+        figure={ figureOnSector && figureOnSector.instance }
+        offsetTop={ offsetTop }>
+        { playerOnSector && (
+          <Player info={ playerOnSector } />
+        ) }
+      </StyledSector>
+    );
+  }
 }
-
-export default Sector;

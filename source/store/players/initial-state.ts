@@ -1,5 +1,5 @@
 import { Player } from '../../classes';
 
 export default [
-  new Player()
+  new Player({ index: 0 })
 ];

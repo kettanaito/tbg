@@ -1,22 +1,24 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { movePlayer } from '../../store/players/actions';
+import store from '../../store';
+import * as playerActions from '../../store/players/actions';
 
 interface IActionBarProps {
-  activePlayerIndex: number,
-  movePlayer: any
+  player: any
 }
 
 class ActionBar extends React.Component<IActionBarProps> {
+  stepsInput: HTMLInputElement
+
   handlePlayerMove = () => {
-    const { movePlayer, activePlayerIndex } = this.props;
-    movePlayer(activePlayerIndex, 1);
+    store.dispatch(playerActions.moveBy(0, parseFloat(this.stepsInput.value)));
   }
 
   render() {
     return (
       <div className="action-bar">
         Action bar
+        <input ref={ i => this.stepsInput = i } name="steps" />
         <button onClick={ this.handlePlayerMove }>Move</button>
       </div>
     );
@@ -24,5 +26,5 @@ class ActionBar extends React.Component<IActionBarProps> {
 }
 
 export default connect((state: any) => ({
-  activePlayerIndex: state.game.activePlayerIndex
-}), { movePlayer })(ActionBar);
+  player: state.players[0]
+}))(ActionBar);

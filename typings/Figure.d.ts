@@ -1,6 +1,6 @@
 type FigureType =
-    'building'
-  | 'unpassable'
+    'unpassable'
+  | 'building'
   | 'encounter'
   | 'obstacle'
   | 'fortuneteller'
@@ -10,7 +10,10 @@ interface IFigure {
   type: FigureType
   name: string
   place: (roadIndex: number, roadLength: number, otherFigures: IPlacedFigure[]) => IPosition
+  onEnter?: IFigureOnEnterHandler
 }
+
+type IFigureOnEnterHandler = (player: IPlayer, actions: any) => void
 
 interface IFigureConfig {
   figure: IFigure

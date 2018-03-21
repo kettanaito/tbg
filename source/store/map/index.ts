@@ -1,5 +1,9 @@
 import initialState from './initial-state';
+import * as playerActions from '../players/actions';
 
 export default function map(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    default:
+      return state;
+  }
 }

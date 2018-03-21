@@ -1,19 +1,16 @@
-type PlayerOptions = {
-  position?: PlayerOptions
-}
+import { moveBy } from '../store/players/actions';
+import { inheritOptions } from '../utils';
 
 export default class Player implements IPlayer {
+  index: number
   hearts: number = 3
   position: IPosition = [0, 0]
 
-  constructor(options: PlayerOptions = null) {
-    return this;
+  constructor(options) {
+    return inheritOptions(this, options);
   }
 
-  /**
-   * Moves the player for the provided delta.
-   */
-  move(delta: number) {
-    // ...
+  moveBy(delta: number) {
+    return moveBy(this.index, delta);
   }
 }

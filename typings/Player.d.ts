@@ -1,4 +1,6 @@
 interface IPlayer {
-  hearts: number,
+  hearts: number
   position: IPosition
+
+  moveBy(delta: number)
 }

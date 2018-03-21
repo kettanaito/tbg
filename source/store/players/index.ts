@@ -3,7 +3,15 @@ import * as actions from './actions';
 
 export default function players(state = initialState, action) {
   switch(action.type) {
-    case actions.MOVE: {
+    case actions.SET_HEARTS: {
+      const { nextValue } = action;
+      return state.map((player) => {
+        player.hearts = nextValue;
+        return player;
+      });
+    }
+
+    case actions.MOVE_BY: {
       const { playerIndex, delta } = action;
       const player = state[playerIndex];
 
